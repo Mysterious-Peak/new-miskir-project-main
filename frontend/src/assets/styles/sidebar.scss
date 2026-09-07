@@ -1,0 +1,398 @@
+@use './variables.module.scss' as *;
+
+#app {
+  .main-container {
+    height: 100%;
+    transition: margin-left 0.28s;
+    margin-left: $base-sidebar-width;
+    position: relative;
+  }
+
+  .sidebarHide {
+    margin-left: 0 !important;
+  }
+
+  .sidebar-container {
+    -webkit-transition: width 0.28s;
+    transition: width 0.28s;
+    width: $base-sidebar-width !important;
+    background-color: $base-menu-background;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    padding-top: 80px;
+    overflow: hidden;
+    -webkit-box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
+
+    // reset element-ui css
+    .horizontal-collapse-transition {
+      transition:
+        0s width ease-in-out,
+        0s padding-left ease-in-out,
+        0s padding-right ease-in-out;
+    }
+
+    .scrollbar-wrapper {
+      overflow-x: hidden !important;
+    }
+
+    .el-scrollbar__bar.is-vertical {
+      right: 0;
+    }
+
+    .el-scrollbar {
+      height: 100%;
+    }
+
+    &.has-logo {
+      .el-scrollbar {
+        height: calc(100% - 50px);
+      }
+    }
+
+    .is-horizontal {
+      display: none;
+    }
+
+    a {
+      display: inline-block;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    // 菜单图标：常绿、18px、右距8px（与 R&D 一致）
+    // color 用于让 symbol 自带 fill="currentColor" 的图标（car/ship/leaf 等）也解析为绿色
+    .svg-icon {
+      margin-right: 8px;
+      font-size: 18px;
+      fill: #009a44;
+      color: #009a44;
+    }
+
+    .el-menu {
+      border: none;
+      height: 100%;
+      width: 100% !important;
+    }
+
+    .el-menu-item,
+    .menu-title {
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+    }
+
+    // 侧边菜单字体与字号统一（与 R&D/AIS 主应用一致）：基准栈 + 14px + 500
+    .el-menu-item,
+    .el-sub-menu__title {
+      font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, 微软雅黑, Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .el-menu-item .el-menu-tooltip__trigger {
+      display: inline-block !important;
+    }
+
+    // menu hover
+    .theme-dark .sub-menu-title-noDropdown,
+    .theme-dark .el-sub-menu__title {
+      border-radius: 8px;
+      margin: 1px 5px 1px 5px;
+      &:hover {
+        color: $base-sub-menu-title-hover !important;
+        background-color: #009a441a !important;
+      }
+    }
+    .sub-menu-title-noDropdown,
+    .el-sub-menu__title {
+      border-radius: 8px;
+      margin: 1px 5px 1px 5px;
+      font-weight: 500;
+      &:hover {
+        background-color: #009a441a !important;
+        color: #009a44 !important;
+      }
+    }
+
+    // 展开态子菜单标题激活色（与 R&D 一致：#009A44，而非主题色）
+    & .el-sub-menu.is-active > .el-sub-menu__title {
+      color: $base-menu-color-active !important;
+    }
+
+    // 最上方与模块同名的父级标题：默认深色文字（不因子页激活而变绿），悬浮时才变绿
+    // 注意：SidebarItem 在 el-menu 直下包了一层 <div>（嵌套层的 div 带 .nest-menu 类），
+    // 因此用 div:not(.nest-menu) 精确限定第一级父级分组
+    & .el-menu > div:not(.nest-menu) > .el-sub-menu.is-active > .el-sub-menu__title:not(:hover),
+    & .theme-dark .el-menu > div:not(.nest-menu) > .el-sub-menu.is-active > .el-sub-menu__title:not(:hover) {
+      color: var(--el-menu-text-color) !important;
+    }
+
+    & .theme-dark .is-active > .el-sub-menu__title {
+      color: $base-menu-color-active !important;
+    }
+
+    // 一级菜单选中样式 - 绿色渐变背景，绿色字体（与 R&D 一致）
+    & .el-menu-item.is-active {
+      background: linear-gradient(135deg, #009a441a, #00b3501a) !important;
+      color: $base-menu-color-active !important;
+      font-weight: 600;
+      .svg-icon {
+         fill:  $base-menu-color-active !important;
+      }
+    }
+
+    // 子菜单项（非一级菜单）选中样式 - 绿色渐变背景，绿色字体（与 R&D 一致）
+    & .theme-dark .nest-menu .el-sub-menu > .el-sub-menu__title.is-active,
+    & .theme-dark .el-sub-menu .el-menu-item.is-active {
+      background: linear-gradient(135deg, #009a441a, #00b3501a) !important;
+      color: $base-menu-color-active !important;
+      font-weight: 600;
+      .svg-icon {
+        fill: $base-menu-color-active !important;
+      }
+      
+      &:not(.is-active):hover {
+        background-color: $base-sub-menu-hover !important;
+      }
+    }
+
+    // 亮色主题下的子菜单项选中样式
+    & .nest-menu .el-sub-menu > .el-sub-menu__title.is-active,
+    & .el-sub-menu .el-menu-item.is-active {
+      background: linear-gradient(135deg, #009a441a, #00b3501a) !important; // 绿色渐变背景（与 R&D 一致）
+      color: $base-sub-menu-color-active !important; // 绿色字体
+      font-weight: 600;
+      
+      .svg-icon {
+        fill: $base-sub-menu-color-active !important;
+      }
+      
+      &:not(.is-active):hover {
+        background-color: rgba(0, 0, 0, 0.04) !important;
+      }
+    }
+
+    & .nest-menu .el-sub-menu > .el-sub-menu__title,
+    & .el-sub-menu .el-menu-item {
+      min-width: calc($base-sidebar-width - 20px) !important;
+      border-radius: 8px;
+      height: 45px;
+      margin: 1px 5px 1px 5px;
+      &:not(.is-active):hover {
+        background-color: #009a441a !important;
+        color: #009a44 !important;
+      }
+    }
+
+    & .theme-dark .nest-menu .el-sub-menu > .el-sub-menu__title,
+    & .theme-dark .el-sub-menu .el-menu-item {
+      background-color: $base-sub-menu-background !important;
+      border-radius: 8px;
+      height: 45px;
+      margin: 1px 5px 1px 5px;
+
+      &.is-active {
+        background: linear-gradient(135deg, #009a441a, #00b3501a) !important;
+        color: $base-sub-menu-color-active !important;
+        font-weight: 600;
+      }
+      &:not(.is-active):hover {
+        // you can use $sub-menuHover
+        background-color: #009a441a !important;
+        color: #009a44 !important;
+      }
+    }
+
+    & .theme-dark .nest-menu .el-sub-menu > .el-sub-menu__title,
+    & .theme-dark .el-menu-item {
+      border-radius: 8px;
+      height: 45px;
+      margin: 1px 5px 1px 5px;
+
+      &.is-active {
+        background: linear-gradient(135deg, #009a441a, #00b3501a) !important;
+        color: $base-menu-color-active !important;
+        font-weight: 600;
+      }
+      &:not(.is-active):hover {
+        // you can use $sub-menuHover
+        background-color: #009a441a !important;
+        color: #009a44 !important;
+      }
+    }
+
+    & .nest-menu .el-sub-menu > .el-sub-menu__title,
+    & .el-menu-item {
+      border-radius: 8px;
+      height: 45px;
+      margin: 1px 5px 1px 5px;
+
+      &.is-active {
+        background: linear-gradient(135deg, #009a441a, #00b3501a) !important;
+        color: $base-menu-color-active !important;
+        font-weight: 600;
+      }
+      &:not(.is-active):hover {
+        // you can use $sub-menuHover
+        background-color: #009a441a !important;
+        color: #009a44 !important;
+      }
+    }
+  }
+
+  // 收起菜单后的样式
+  .hideSidebar {
+    .sidebar-container {
+      width: 54px !important;
+    }
+
+    .main-container {
+      margin-left: 54px;
+    }
+
+    .sub-menu-title-noDropdown {
+      padding: 0 !important;
+      position: relative;
+      height: 45px;
+      // 选中状态的菜单
+      &.is-active {
+        background-color: #ffffff !important;
+        color: #fff !important;
+      }
+
+      .el-tooltip {
+        padding: 0 !important;
+      }
+    }
+
+
+    & .el-sub-menu {
+      overflow: hidden;
+      border-radius: 8px;
+      .el-sub-menu__title.el-tooltip__trigger {
+        border-radius: 8px;
+        height: 45px;
+      }
+
+      // 选中状态的菜单
+      &.is-active .el-sub-menu__title.el-tooltip__trigger {
+        background-color: rgba(0, 154, 68, 0.1) !important;
+
+        .svg-icon {
+          fill: #009A44 !important;
+        }
+      }
+
+
+      & > .el-sub-menu__title {
+        padding: 0 !important;
+      }
+    }
+
+    .el-menu--collapse {
+      .is-active .svg-icon {
+        fill: #009A44;
+      }
+      .svg-icon {
+        display: flex;
+        margin: auto;
+        height: 100%;
+        // 这里设置width会跟随sidebar-container的transition 不符合预期
+      }
+      .el-sub-menu {
+        & > .el-sub-menu__title {
+          & > span {
+            height: 0;
+            width: 0;
+            overflow: hidden;
+            visibility: hidden;
+            display: inline-block;
+          }
+          & > i {
+            height: 0;
+            width: 0;
+            overflow: hidden;
+            visibility: hidden;
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+
+  .el-menu--collapse .el-menu .el-sub-menu {
+    min-width: $base-sidebar-width !important;
+  }
+
+  // mobile responsive
+  .mobile {
+    .main-container {
+      margin-left: 0px;
+    }
+
+    .sidebar-container {
+      transition: transform 0.28s;
+      width: $base-sidebar-width !important;
+    }
+
+    &.hideSidebar {
+      .sidebar-container {
+        pointer-events: none;
+        transition-duration: 0.3s;
+        transform: translate3d(-$base-sidebar-width, 0, 0);
+      }
+    }
+  }
+
+  .withoutAnimation {
+    .main-container,
+    .sidebar-container {
+      transition: none;
+    }
+  }
+}
+
+// when menu collapsed
+.el-menu--vertical {
+  & > .el-menu {
+    .svg-icon {
+      margin-right: 16px;
+    }
+  }
+}
+// 收起菜单后悬浮的菜单样式
+.el-popper.is-pure{
+  border-radius: 8px;
+  .el-menu--popup{
+    border-radius: 8px;
+    // 悬浮菜单中的选中项样式
+    .el-menu-item.is-active {
+      background-color: rgba(0, 154, 68, 0.1) !important; // 浅绿色背景
+      color: #009A44 !important; // 绿色字体
+    }
+  }
+  .el-menu-item{
+    border-radius: 4px;
+
+    // 悬浮菜单项悬停效果
+    &:hover {
+      background-color: rgba(0, 154, 68, 0.05) !important;
+    }
+    
+    // 悬浮菜单选中项
+    &.is-active {
+      background-color: rgba(0, 154, 68, 0.1) !important;
+      color: #009A44 !important;
+    }
+  }
+  // 弹出菜单图标常绿（仅颜色统一，其余弹出菜单样式不在本次范围）
+  .svg-icon {
+    fill: #009a44;
+    color: #009a44;
+  }
+}
