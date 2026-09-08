@@ -102,7 +102,7 @@
     .theme-dark .sub-menu-title-noDropdown,
     .theme-dark .el-sub-menu__title {
       border-radius: 8px;
-      margin: 1px 5px 1px 5px;
+      margin: 4px 8px;
       &:hover {
         color: $base-sub-menu-title-hover !important;
         background-color: #009a441a !important;
@@ -111,7 +111,7 @@
     .sub-menu-title-noDropdown,
     .el-sub-menu__title {
       border-radius: 8px;
-      margin: 1px 5px 1px 5px;
+      margin: 4px 8px;
       font-weight: 500;
       &:hover {
         background-color: #009a441a !important;
@@ -181,8 +181,8 @@
     & .el-sub-menu .el-menu-item {
       min-width: calc($base-sidebar-width - 20px) !important;
       border-radius: 8px;
-      height: 45px;
-      margin: 1px 5px 1px 5px;
+      height: 48px;
+      margin: 4px 8px;
       &:not(.is-active):hover {
         background-color: #009a441a !important;
         color: #009a44 !important;
@@ -193,8 +193,8 @@
     & .theme-dark .el-sub-menu .el-menu-item {
       background-color: $base-sub-menu-background !important;
       border-radius: 8px;
-      height: 45px;
-      margin: 1px 5px 1px 5px;
+      height: 48px;
+      margin: 4px 8px;
 
       &.is-active {
         background: linear-gradient(135deg, #009a441a, #00b3501a) !important;
@@ -211,8 +211,8 @@
     & .theme-dark .nest-menu .el-sub-menu > .el-sub-menu__title,
     & .theme-dark .el-menu-item {
       border-radius: 8px;
-      height: 45px;
-      margin: 1px 5px 1px 5px;
+      height: 48px;
+      margin: 4px 8px;
 
       &.is-active {
         background: linear-gradient(135deg, #009a441a, #00b3501a) !important;
@@ -229,8 +229,8 @@
     & .nest-menu .el-sub-menu > .el-sub-menu__title,
     & .el-menu-item {
       border-radius: 8px;
-      height: 45px;
-      margin: 1px 5px 1px 5px;
+      height: 48px;
+      margin: 4px 8px;
 
       &.is-active {
         background: linear-gradient(135deg, #009a441a, #00b3501a) !important;
@@ -248,17 +248,17 @@
   // 收起菜单后的样式
   .hideSidebar {
     .sidebar-container {
-      width: 54px !important;
+      width: 64px !important;
     }
 
     .main-container {
-      margin-left: 54px;
+      margin-left: 64px;
     }
 
     .sub-menu-title-noDropdown {
       padding: 0 !important;
       position: relative;
-      height: 45px;
+      height: 48px;
       // 选中状态的菜单
       &.is-active {
         background-color: #ffffff !important;
@@ -276,7 +276,7 @@
       border-radius: 8px;
       .el-sub-menu__title.el-tooltip__trigger {
         border-radius: 8px;
-        height: 45px;
+        height: 48px;
       }
 
       // 选中状态的菜单

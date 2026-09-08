@@ -213,7 +213,7 @@ const setLayout = () => {
 }
 
 .hideSidebar .fixed-header {
-  width: calc(100% - 54px);
+  width: calc(100% - 64px);
 }
 
 .sidebarHide .fixed-header {

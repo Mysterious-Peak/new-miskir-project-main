@@ -78,8 +78,8 @@ const textColor = computed(() => (sideTheme.value === 'theme-dark' ? variables.m
   /* 圆形收缩按钮样式 - 与现有CSS结合 */
 .sidebar-collapse-btn {
   position: fixed;
-  top: 100px; /* 80px (Navbar高度) + 60px (Logo区域高度) = 140px，与第一个菜单项对齐 */
-  left: 300px; /* 根据侧边栏宽度定位 */
+  top: 80px; /* 60px 顶栏 + 20px 侧栏内距，与参考项目折叠按钮对齐 */
+  left: 280px; /* 与参考项目的默认侧栏宽度一致 */
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -121,7 +121,7 @@ const textColor = computed(() => (sideTheme.value === 'theme-dark' ? variables.m
   
   /* 侧边栏折叠状态 - 向右箭头 */
   &.is-collapsed {
-    left: 54px;
+    left: 64px;
     .el-icon {
       transform: rotate(180deg); /* 旋转180度变成向右 */
     }
@@ -129,7 +129,7 @@ const textColor = computed(() => (sideTheme.value === 'theme-dark' ? variables.m
   
   // /* 侧边栏折叠状态 */
   // &.is-collapsed {
-  //   left: 54px; /* 折叠后的侧边栏宽度 */
+  //   left: 64px; /* 折叠后的侧边栏宽度 */
     
   //   .el-icon {
   //     transform: rotate(180deg);

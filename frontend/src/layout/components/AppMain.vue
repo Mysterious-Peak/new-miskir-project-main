@@ -58,11 +58,10 @@ function addIframe() {
   width: 100%;
   position: relative;
   overflow: hidden;
-  left:10px;
-  right:20px;
-  // 圆角
-  border-radius: 12px;
-  padding-bottom: 20px !important;
+  left: 0;
+  right: 0;
+  border-radius: 0;
+  padding-bottom: 0 !important;
 }
 
 .fixed-header + .app-main {
@@ -89,16 +88,21 @@ function addIframe() {
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #c0c0c0;
-  border-radius: 3px;
+  background-color: rgba(0, 154, 68, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 154, 68, 0.5);
 }
 </style>
