@@ -50,7 +50,9 @@
 
     &.has-logo {
       .el-scrollbar {
-        height: calc(100% - 50px);
+        /* The logo is rendered in the navbar, so the menu keeps the full
+         * sidebar height in every viewport. */
+        height: 100%;
       }
     }
 
@@ -89,7 +91,15 @@
     // 侧边菜单字体与字号统一（与 R&D/AIS 主应用一致）：基准栈 + 14px + 500
     .el-menu-item,
     .el-sub-menu__title {
-      font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, 微软雅黑, Arial, sans-serif;
+      font-family:
+        Helvetica Neue,
+        Helvetica,
+        PingFang SC,
+        Hiragino Sans GB,
+        Microsoft YaHei,
+        微软雅黑,
+        Arial,
+        sans-serif;
       font-size: 14px;
       font-weight: 500;
     }
@@ -142,7 +152,7 @@
       color: $base-menu-color-active !important;
       font-weight: 600;
       .svg-icon {
-         fill:  $base-menu-color-active !important;
+        fill: $base-menu-color-active !important;
       }
     }
 
@@ -155,7 +165,7 @@
       .svg-icon {
         fill: $base-menu-color-active !important;
       }
-      
+
       &:not(.is-active):hover {
         background-color: $base-sub-menu-hover !important;
       }
@@ -167,11 +177,11 @@
       background: linear-gradient(135deg, #009a441a, #00b3501a) !important; // 绿色渐变背景（与 R&D 一致）
       color: $base-sub-menu-color-active !important; // 绿色字体
       font-weight: 600;
-      
+
       .svg-icon {
         fill: $base-sub-menu-color-active !important;
       }
-      
+
       &:not(.is-active):hover {
         background-color: rgba(0, 0, 0, 0.04) !important;
       }
@@ -179,7 +189,8 @@
 
     & .nest-menu .el-sub-menu > .el-sub-menu__title,
     & .el-sub-menu .el-menu-item {
-      min-width: calc($base-sidebar-width - 20px) !important;
+      width: calc(100% - 16px) !important;
+      min-width: 0 !important;
       border-radius: 8px;
       height: 48px;
       margin: 4px 8px;
@@ -270,7 +281,6 @@
       }
     }
 
-
     & .el-sub-menu {
       overflow: hidden;
       border-radius: 8px;
@@ -284,10 +294,9 @@
         background-color: rgba(0, 154, 68, 0.1) !important;
 
         .svg-icon {
-          fill: #009A44 !important;
+          fill: #009a44 !important;
         }
       }
-
 
       & > .el-sub-menu__title {
         padding: 0 !important;
@@ -296,7 +305,7 @@
 
     .el-menu--collapse {
       .is-active .svg-icon {
-        fill: #009A44;
+        fill: #009a44;
       }
       .svg-icon {
         display: flex;
@@ -357,6 +366,33 @@
   }
 }
 
+/* miskir_project keeps a compact desktop sidebar on tablet widths.  These
+ * rules intentionally sit after the legacy RuoYi block so they win without
+ * touching component structure or navigation behavior. */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  #app .sidebar-container {
+    width: 200px !important;
+  }
+
+  #app .main-container {
+    margin-left: 200px;
+    margin-right: 0;
+  }
+
+  #app .hideSidebar .sidebar-container {
+    width: 64px !important;
+  }
+
+  #app .hideSidebar .main-container {
+    margin-left: 64px;
+  }
+
+  #app .sidebar-container .el-menu-item,
+  #app .sidebar-container .el-sub-menu__title {
+    min-width: 0 !important;
+  }
+}
+
 // when menu collapsed
 .el-menu--vertical {
   & > .el-menu {
@@ -366,28 +402,28 @@
   }
 }
 // 收起菜单后悬浮的菜单样式
-.el-popper.is-pure{
+.el-popper.is-pure {
   border-radius: 8px;
-  .el-menu--popup{
+  .el-menu--popup {
     border-radius: 8px;
     // 悬浮菜单中的选中项样式
     .el-menu-item.is-active {
       background-color: rgba(0, 154, 68, 0.1) !important; // 浅绿色背景
-      color: #009A44 !important; // 绿色字体
+      color: #009a44 !important; // 绿色字体
     }
   }
-  .el-menu-item{
+  .el-menu-item {
     border-radius: 4px;
 
     // 悬浮菜单项悬停效果
     &:hover {
       background-color: rgba(0, 154, 68, 0.05) !important;
     }
-    
+
     // 悬浮菜单选中项
     &.is-active {
       background-color: rgba(0, 154, 68, 0.1) !important;
-      color: #009A44 !important;
+      color: #009a44 !important;
     }
   }
   // 弹出菜单图标常绿（仅颜色统一，其余弹出菜单样式不在本次范围）

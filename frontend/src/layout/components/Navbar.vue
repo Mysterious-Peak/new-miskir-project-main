@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <!-- <hamburger id="hamburger-container" :is-active="appStore.sidebar.opened" class="hamburger-container" @toggle-click="toggleSideBar" /> -->
+    <hamburger id="hamburger-container" :is-active="appStore.sidebar.opened" class="hamburger-container" @toggle-click="toggleSideBar" />
     <logo v-if="showLogo" :collapse="false" class="navbar-logo" />
     <!-- <breadcrumb v-if="!settingsStore.topNav" id="breadcrumb-container" class="breadcrumb-container" /> -->
     <top-nav v-if="settingsStore.topNav" id="topmenu-container" class="topmenu-container" />
@@ -115,6 +115,7 @@ import notice from './notice/index.vue';
 import router from '@/router';
 import { ElMessageBoxOptions } from 'element-plus/es/components/message-box/src/message-box.type';
 import Logo from './Sidebar/Logo.vue';
+import Hamburger from '@/components/Hamburger/index.vue';
 
 const appStore = useAppStore();
 const userStore = useUserStore();
@@ -269,6 +270,23 @@ const goToHome = () => {
     sans-serif;
 
   .hamburger-container {
+    display: none;
+    flex: 0 0 auto;
+    align-items: center;
+    height: 100%;
+    padding: 0 8px 0 0;
+
+    :deep(.hamburger) {
+      fill: #ffffff;
+    }
+  }
+
+  .navbar-logo {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .hamburger-container {
     line-height: 46px;
     height: 100%;
     float: left;
@@ -299,6 +317,7 @@ const goToHome = () => {
     margin-left: auto;
     height: 52px;
     display: flex;
+    flex: 0 0 auto;
     align-items: center;
     line-height: 50px;
 
@@ -395,7 +414,15 @@ const goToHome = () => {
           .user-name {
             opacity: 1;
             color: #ffffff;
-            font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, 微软雅黑, Arial, sans-serif;
+            font-family:
+              Helvetica Neue,
+              Helvetica,
+              PingFang SC,
+              Hiragino Sans GB,
+              Microsoft YaHei,
+              微软雅黑,
+              Arial,
+              sans-serif;
             font-weight: regular;
             font-size: 14px;
             line-height: normal;
@@ -404,7 +431,7 @@ const goToHome = () => {
             cursor: pointer;
             white-space: nowrap;
             max-width: 120px;
-            min-width: 80px;
+            min-width: 0;
             overflow: hidden;
             text-overflow: ellipsis;
           }
@@ -428,7 +455,7 @@ const goToHome = () => {
   }
 
   .avatar-container {
-    margin-right: 20px;
+    margin-right: 0;
     display: flex;
     align-items: center;
     height: 100%;
@@ -474,11 +501,29 @@ const goToHome = () => {
 /* 修改点9：响应式调整 */
 @media (max-width: 768px) {
   .navbar {
+    padding: 0 12px;
+
+    .hamburger-container {
+      display: flex;
+    }
+
+    .navbar-logo {
+      overflow: hidden;
+    }
+
+    .navbar-logo :deep(.sidebar-title) {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     .right-menu {
       .right-menu-item {
         &.lang-select-item,
         &.avatar-dropdown {
           height: 36px; /* 移动端稍小 */
+          padding: 6px;
         }
 
         &.avatar-dropdown .avatar-wrapper .user-avatar {
@@ -487,6 +532,22 @@ const goToHome = () => {
         }
       }
     }
+
+    .right-menu .avatar-dropdown .avatar-wrapper .user-name {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-wrapper,
+  .navbar {
+    height: 56px;
+  }
+
+  .navbar .right-menu .avatar-dropdown .avatar-wrapper .user-avatar {
+    width: 28px;
+    height: 28px;
   }
 }
 </style>

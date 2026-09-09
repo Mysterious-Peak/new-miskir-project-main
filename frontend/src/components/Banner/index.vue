@@ -146,7 +146,6 @@ const goBack = () => {
     navigateBack();
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
@@ -185,6 +184,7 @@ const goBack = () => {
 // 内容布局
 .banner-content {
   width: 100%;
+  min-width: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -194,6 +194,7 @@ const goBack = () => {
 // 左侧内容区
 .banner-left {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: row;
   justify-content: left;
@@ -235,7 +236,15 @@ const goBack = () => {
 .banner-description {
   opacity: 1;
   color: #ffffff;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, 微软雅黑, Arial, sans-serif;
+  font-family:
+    Helvetica Neue,
+    Helvetica,
+    PingFang SC,
+    Hiragino Sans GB,
+    Microsoft YaHei,
+    微软雅黑,
+    Arial,
+    sans-serif;
   font-weight: regular;
   font-size: 18px;
   line-height: normal;
@@ -315,6 +324,7 @@ const goBack = () => {
   flex-direction: column;
   justify-content: center;
   gap: 4px; // 标题和描述之间的间距
+  min-width: 0;
 }
 
 // 主标题样式
@@ -324,6 +334,9 @@ const goBack = () => {
   font-size: 18px; // 根据你的字体规范
   line-height: 27px; // 根据你的字体规范（1.5倍）
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   // 文本阴影增强可读性
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -336,6 +349,9 @@ const goBack = () => {
   line-height: 21px; // 根据你的字体规范（1.5倍）
   margin: 0;
   color: rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 // 右侧操作区
@@ -353,33 +369,65 @@ const goBack = () => {
   z-index: 99;
 }
 
-// @media (max-width: 768px) {
-//   .banner-container {
-//     height: auto;
-//     min-height: 128px;
-//     padding: 20px;
-//   }
+@media screen and (max-width: 768px) {
+  .banner-container {
+    height: auto;
+    min-height: 112px;
+    padding: 20px 16px;
+  }
 
-//   .banner-content {
-//     flex-direction: column;
-//     align-items: flex-start;
-//     gap: 16px;
-//   }
+  .banner-content {
+    gap: 16px;
+  }
 
-//   .banner-right {
-//     width: 100%;
-//     justify-content: flex-end;
-//   }
+  .banner-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
 
-//   .banner-center {
-//     .banner-content {
-//       align-items: center;
-//       text-align: center;
-//     }
+  .banner-title {
+    font-size: 20px;
+    line-height: 1.35;
+  }
 
-//     .banner-right {
-//       justify-content: center;
-//     }
-//   }
-// }
+  .banner-description {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .banner-container {
+    min-height: 96px;
+    padding: 16px 12px;
+    border-radius: 10px;
+  }
+
+  .banner-content {
+    gap: 12px;
+  }
+
+  .banner-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+  }
+
+  .banner-icon :deep(svg),
+  .banner-icon :deep(img),
+  .banner-icon :deep(.el-icon) {
+    width: 24px;
+    height: 24px;
+    font-size: 20px;
+  }
+
+  .banner-title {
+    font-size: 18px;
+  }
+
+  .banner-description {
+    font-size: 12px;
+  }
+}
 </style>

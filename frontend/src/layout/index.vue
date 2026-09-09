@@ -50,12 +50,14 @@ const classObj = computed(() => ({
   openSidebar: sidebar.value.opened,
   withoutAnimation: sidebar.value.withoutAnimation,
   mobile: device.value === 'mobile',
-  hasTagsView: needTagsView,
+  hasTagsView: needTagsView.value,
   sidebarHide: sidebar.value.hide
 }));
 
 const { width } = useWindowSize();
-const WIDTH = 992; // refer to Bootstrap's responsive design
+// Keep the responsive boundary aligned with miskir_project: tablet keeps a
+// compact sidebar, while only phone-sized viewports use the drawer layout.
+const WIDTH = 768;
 
 watchEffect(() => {
   if (device.value === 'mobile') {
@@ -148,8 +150,7 @@ const setLayout = () => {
 }
 
 .main-container {
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-right: 0;
 }
 
 .drawer-bg {
@@ -190,14 +191,15 @@ const setLayout = () => {
 
 /* TagsView 包装器，与 Navbar 有20px间隔 */
 .tagsview-wrapper {
+  box-sizing: border-box;
+  width: calc(100% - 40px);
   margin-bottom: 20px;
   margin-left: 20px;
-  // margin-right: 20px;
-  // background: transparent;
+  margin-right: 20px;
 }
 
 .header-placeholder {
-  height: 80px; /* 根据 Navbar 的实际高度调整 */
+  height: 80px; /* 顶栏 60px + 页面顶部 20px 间距 */
   width: 100%;
   // background: transparent;
 }
@@ -210,10 +212,6 @@ const setLayout = () => {
   width: 100%;
   transition: width 0.28s;
   // background: transparent;
-}
-
-.hideSidebar .fixed-header {
-  width: calc(100% - 64px);
 }
 
 .sidebarHide .fixed-header {
@@ -229,6 +227,43 @@ const setLayout = () => {
   position: relative;
   z-index: 1;
   box-sizing: border-box;
-  margin-left: 20px;
+  width: calc(100% - 40px);
+  margin: 0 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .header-placeholder {
+    height: 60px;
+  }
+
+  .tagsview-wrapper {
+    width: calc(100% - 32px);
+    margin: 0 16px 16px;
+  }
+
+  .banner-fixed {
+    width: calc(100% - 32px);
+    margin: 0 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .navbar-wrapper {
+    height: 56px;
+  }
+
+  .header-placeholder {
+    height: 56px;
+  }
+
+  .tagsview-wrapper {
+    width: calc(100% - 24px);
+    margin: 0 12px 12px;
+  }
+
+  .banner-fixed {
+    width: calc(100% - 24px);
+    margin: 0 12px;
+  }
 }
 </style>

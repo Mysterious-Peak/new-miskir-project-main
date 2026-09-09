@@ -511,6 +511,105 @@ label,
   font-size: 16px;
 }
 
+/* Legacy RuoYi pages use .search + el-form--inline instead of the newer
+ * search-section class. Keep the same spacing and control sizing contract
+ * without requiring template changes in every page. */
+.search > .el-form.el-form--inline,
+.panel > .el-form.el-form--inline,
+.app-main .el-form.el-form--inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px 24px;
+  width: 100%;
+}
+
+.search > .el-form.el-form--inline > .el-form-item,
+.panel > .el-form.el-form--inline > .el-form-item,
+.app-main .el-form.el-form--inline > .el-form-item {
+  flex: 1 1 240px;
+  min-width: 0;
+  max-width: 320px;
+  margin-right: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.search > .el-form.el-form--inline > .el-form-item > .el-form-item__label,
+.panel > .el-form.el-form--inline > .el-form-item > .el-form-item__label,
+.app-main .el-form.el-form--inline > .el-form-item > .el-form-item__label {
+  width: auto;
+  min-width: 0 !important;
+  padding: 0;
+  margin-right: 8px;
+  color: #606266;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.search > .el-form.el-form--inline > .el-form-item > .el-form-item__content,
+.panel > .el-form.el-form--inline > .el-form-item > .el-form-item__content,
+.app-main .el-form.el-form--inline > .el-form-item > .el-form-item__content {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.search > .el-form.el-form--inline .el-input,
+.search > .el-form.el-form--inline .el-select,
+.search > .el-form.el-form--inline .el-cascader,
+.search > .el-form.el-form--inline .el-date-editor,
+.panel > .el-form.el-form--inline .el-input,
+.panel > .el-form.el-form--inline .el-select,
+.panel > .el-form.el-form--inline .el-cascader,
+.panel > .el-form.el-form--inline .el-date-editor,
+.app-main .el-form.el-form--inline .el-input,
+.app-main .el-form.el-form--inline .el-select,
+.app-main .el-form.el-form--inline .el-cascader,
+.app-main .el-form.el-form--inline .el-date-editor {
+  max-width: 100%;
+}
+
+.search > .el-form.el-form--inline > .el-form-item:last-child,
+.panel > .el-form.el-form--inline > .el-form-item:last-child,
+.app-main .el-form.el-form--inline > .el-form-item:last-child {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 12px;
+  min-width: auto;
+  max-width: none;
+  margin-left: auto;
+}
+
+.search > .el-form.el-form--inline > .el-form-item:last-child > .el-form-item__content,
+.panel > .el-form.el-form--inline > .el-form-item:last-child > .el-form-item__content,
+.app-main .el-form.el-form--inline > .el-form-item:last-child > .el-form-item__content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Card toolbars are built with a 24-column el-row. Let real button widths
+ * determine the action columns when the content area becomes narrow. */
+.el-card__header > .el-row:has(.el-col .el-button),
+.el-card__header .el-row:has(.el-col .el-button) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.el-card__header > .el-row:has(.el-col .el-button) > .el-col,
+.el-card__header .el-row:has(.el-col .el-button) > .el-col {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: none;
+}
+
+.el-card__header .el-row > .el-col:has(.table-page-title) {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
 /* Final table specification from the reference project. */
 .el-table {
   --el-table-border-color: #e0e6e2;
@@ -1201,6 +1300,83 @@ label,
     height: 32px;
     margin: 2px;
     line-height: 32px;
+  }
+
+  .search > .el-form.el-form--inline,
+  .panel > .el-form.el-form--inline,
+  .app-main .el-form.el-form--inline {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .search > .el-form.el-form--inline > .el-form-item,
+  .panel > .el-form.el-form--inline > .el-form-item,
+  .search > .el-form.el-form--inline > .el-form-item:last-child,
+  .panel > .el-form.el-form--inline > .el-form-item:last-child,
+  .app-main .el-form.el-form--inline > .el-form-item,
+  .app-main .el-form.el-form--inline > .el-form-item:last-child {
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    margin-left: 0;
+  }
+
+  .search > .el-form.el-form--inline > .el-form-item > .el-form-item__label,
+  .panel > .el-form.el-form--inline > .el-form-item > .el-form-item__label,
+  .app-main .el-form.el-form--inline > .el-form-item > .el-form-item__label {
+    display: block;
+    width: auto;
+    margin-right: 0;
+    line-height: 1.5;
+  }
+
+  .search > .el-form.el-form--inline > .el-form-item > .el-form-item__content,
+  .panel > .el-form.el-form--inline > .el-form-item > .el-form-item__content,
+  .search > .el-form.el-form--inline > .el-form-item:last-child > .el-form-item__content,
+  .panel > .el-form.el-form--inline > .el-form-item:last-child > .el-form-item__content,
+  .app-main .el-form.el-form--inline > .el-form-item > .el-form-item__content,
+  .app-main .el-form.el-form--inline > .el-form-item:last-child > .el-form-item__content {
+    width: 100%;
+  }
+
+  .search > .el-form.el-form--inline > .el-form-item:last-child > .el-form-item__content > .el-button,
+  .panel > .el-form.el-form--inline > .el-form-item:last-child > .el-form-item__content > .el-button,
+  .app-main .el-form.el-form--inline > .el-form-item:last-child > .el-form-item__content > .el-button {
+    flex: 1 1 0;
+  }
+
+  .el-card__header > .el-row:has(.el-col .el-button),
+  .el-card__header .el-row:has(.el-col .el-button) {
+    align-items: stretch;
+  }
+
+  .el-card__header .el-row > .el-col:has(.table-page-title) {
+    flex: 1 1 100%;
+  }
+
+  .el-table .el-table__body-wrapper .cell:has(.el-button),
+  .el-table .el-table__fixed-body-wrapper .cell:has(.el-button),
+  .el-table .action-column .cell {
+    overflow: visible !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .app-main > .p-2 {
+    padding: 12px !important;
+  }
+
+  .el-card.search-card .el-card__body,
+  .search,
+  .panel {
+    padding: 12px !important;
+  }
+
+  .el-dialog,
+  .el-overlay .el-overlay-dialog .el-dialog {
+    width: calc(100% - 16px) !important;
   }
 }
 

@@ -6,7 +6,7 @@
       :background="background"
       :layout="layout"
       :page-sizes="pageSizes"
-      :pager-count="pagerCount"
+      :pager-count="responsivePagerCount"
       :total="total"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
@@ -33,6 +33,8 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update:page', 'update:limit', 'pagination']);
+const { width: viewportWidth } = useWindowSize();
+const responsivePagerCount = computed(() => (props.pagerCount === 7 ? (viewportWidth.value <= 768 ? 5 : 7) : props.pagerCount));
 const currentPage = computed({
   get() {
     return props.page;
@@ -67,10 +69,11 @@ function handleCurrentChange(val: number) {
 </script>
 
 <style lang="scss" scoped>
-/* 表格下方页面信息行（Total + 页码）整体水平居中（原为 float 右对齐） */
+/* Match the reference shell: desktop pagination is right aligned; phones
+ * reclaim the row by centering the compact controls. */
 .pagination-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
 
   .el-pagination {
     float: none;
@@ -78,5 +81,11 @@ function handleCurrentChange(val: number) {
 }
 .pagination-container.hidden {
   display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .pagination-container {
+    justify-content: center;
+  }
 }
 </style>

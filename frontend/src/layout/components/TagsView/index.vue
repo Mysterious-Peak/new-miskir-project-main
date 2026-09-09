@@ -87,6 +87,7 @@ const canScrollLeft = ref(false); // 是否可以向左滚动
 const canScrollRight = ref(false); // 是否可以向右滚动
 const containerWidth = ref(0); // 容器宽度
 const wrapperWidth = ref(0); // 标签总宽度
+let tagsResizeObserver: ResizeObserver | undefined;
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 const route = useRoute();
@@ -418,9 +419,13 @@ const updateScrollButtons = () => {
   const canScroll = wrapperWidth > containerWidth;
 
   if (canScroll) {
+    const minTranslateX = Math.min(0, containerWidth - wrapperWidth);
+    // Keep the translated strip inside the newly measured viewport after a
+    // browser resize or sidebar animation.
+    translateX.value = Math.max(minTranslateX, Math.min(0, translateX.value));
     // 可以滚动时，根据当前滚动位置决定按钮状态
     canScrollLeft.value = translateX.value < 0;
-    canScrollRight.value = translateX.value > containerWidth - wrapperWidth;
+    canScrollRight.value = translateX.value > minTranslateX;
   } else {
     // 不能滚动时，重置位置和按钮状态
     translateX.value = 0;
@@ -438,13 +443,24 @@ const handleSidebarChange = () => {
   }, 300); // 与侧边栏动画时间一致
 };
 
+const handleResize = () => {
+  updateContainerDimensions();
+  updateScrollButtons();
+};
+
 // 窗口大小变化时更新滚动按钮
 onMounted(() => {
   initTags();
   addTags();
 
   // 监听窗口大小变化
-  window.addEventListener('resize', updateScrollButtons);
+  window.addEventListener('resize', handleResize);
+
+  if (typeof ResizeObserver !== 'undefined') {
+    tagsResizeObserver = new ResizeObserver(handleResize);
+    if (scrollContainerRef.value) tagsResizeObserver.observe(scrollContainerRef.value);
+    if (tagsWrapperRef.value) tagsResizeObserver.observe(tagsWrapperRef.value);
+  }
 
   // 初始更新滚动按钮状态
   nextTick(() => {
@@ -453,18 +469,28 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  window.removeEventListener('resize', updateScrollButtons);
+  window.removeEventListener('resize', handleResize);
+  tagsResizeObserver?.disconnect();
+  tagsResizeObserver = undefined;
 });
 </script>
 
 <style lang="scss" scoped>
 .tags-view-container {
-  height: 34px;
+  height: 40px;
   width: 100%;
   background-color: #fff !important;
   opacity: 1;
   color: #333333;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, 微软雅黑, Arial, sans-serif;
+  font-family:
+    Helvetica Neue,
+    Helvetica,
+    PingFang SC,
+    Hiragino Sans GB,
+    Microsoft YaHei,
+    微软雅黑,
+    Arial,
+    sans-serif;
   font-weight: regular;
   font-size: 16px;
   line-height: normal;
@@ -645,6 +671,22 @@ onUnmounted(() => {
         background: #eee;
       }
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .tags-view-container {
+    height: 36px;
+  }
+
+  .tags-view-container .tags-view-wrapper {
+    margin-right: 28px;
+    margin-left: 28px;
+  }
+
+  .tags-view-container .tags-view-items-wrapper {
+    padding-right: 4px;
+    padding-left: 4px;
   }
 }
 </style>

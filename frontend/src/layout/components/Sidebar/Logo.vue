@@ -91,7 +91,8 @@ const envIcon = computed(() => {
 
 .sidebar-logo-container {
   position: relative;
-  width: max-content;
+  width: 100%;
+  min-width: 0;
   height: 100%;
   line-height: 60px;
   line-height: 80px;
@@ -127,6 +128,11 @@ const envIcon = computed(() => {
       justify-content: center;
       height: 60px;
       margin: 0;
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
