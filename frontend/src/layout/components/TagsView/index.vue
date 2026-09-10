@@ -477,31 +477,19 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 .tags-view-container {
+  box-sizing: border-box;
   height: 40px;
   width: 100%;
+  padding: 0 12px;
   background-color: #fff !important;
-  opacity: 1;
-  color: #333333;
-  font-family:
-    Helvetica Neue,
-    Helvetica,
-    PingFang SC,
-    Hiragino Sans GB,
-    Microsoft YaHei,
-    微软雅黑,
-    Arial,
-    sans-serif;
-  font-weight: regular;
-  font-size: 16px;
-  line-height: normal;
-  letter-spacing: 0px;
+  color: #606266;
+  font-family: var(--app-font-family);
+  font-size: 13px;
+  font-weight: 400;
   text-align: left;
-
   border: none;
-  border-radius: 12px;
-  box-shadow:
-    0 1px 3px 0 rgba(0, 0, 0, 0.12),
-    0 0 3px 0 rgba(0, 0, 0, 0.04);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 
   .tags-view-scroll-container {
     display: flex;
@@ -511,16 +499,18 @@ onUnmounted(() => {
 
     .scroll-button {
       position: absolute;
-      top: 0;
-      height: 100%;
-      width: 30px;
-      background-color: rgba(255, 255, 255, 0.8);
+      top: 50%;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      background: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       z-index: 10;
-      transition: background-color 0.3s;
+      transform: translateY(-50%);
+      transition: all 0.3s ease;
 
       &:hover {
         background-color: rgba(0, 154, 68, 0.1);
@@ -528,14 +518,12 @@ onUnmounted(() => {
 
       .el-icon {
         font-size: 14px;
-        color: #333;
+        color: #606266;
       }
 
       &.scroll-button-left {
         left: 0;
-        border-top-left-radius: 8px;
-        border-bottom-left-radius: 8px;
-        // box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+
         &:hover {
           color: #009a44;
         }
@@ -543,9 +531,6 @@ onUnmounted(() => {
 
       &.scroll-button-right {
         right: 0;
-        border-top-right-radius: 8px;
-        border-bottom-right-radius: 8px;
-        // box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
       }
     }
   }
@@ -555,30 +540,33 @@ onUnmounted(() => {
     height: 100%;
     overflow: hidden;
     position: relative;
-    margin: 0 30px;
+    margin: 0 28px;
+
     .tags-view-items-wrapper {
       display: inline-flex;
+      align-items: center;
       height: 100%;
       transition: transform 0.3s ease;
       white-space: nowrap;
-      padding: 0 5px;
+      padding: 0;
+
       .tags-view-item {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         position: relative;
         cursor: pointer;
-        height: 26px;
-        line-height: 25px;
+        height: 40px;
+        line-height: normal;
         background-color: #fff !important;
         border: none;
-        // color: #495060;
-        padding: 0 8px;
-        font-size: 12px;
-        margin-left: 5px;
-        margin-top: 4px;
-        // border-radius: 8px;
+        border-bottom: 2px solid transparent;
+        padding: 0 12px;
+        margin: 0;
+        font-size: 13px;
         flex-shrink: 0;
         text-decoration: none;
-        color: #333;
+        color: #606266;
 
         &:not(:first-child)::before {
           content: '';
@@ -586,52 +574,36 @@ onUnmounted(() => {
           left: 0;
           top: 50%;
           transform: translateY(-50%);
-          height: 12px;
+          height: 16px;
           width: 1px;
-          background-color: var(--el-border-color-light);
+          background-color: #e4e7ed;
         }
 
         &:hover {
-          color: #1dc244;
+          color: #009a44;
           background-color: rgba(0, 154, 68, 0.05);
         }
-        &:first-of-type {
-          margin-left: 0px;
-        }
-        // &:last-of-type {
-        //   margin-right: 15px;
-        // }
+
         &.active {
-          // background-color: #ffffff;
           color: #009a44 !important;
-          font-weight: bolder;
-          opacity: 1;
-          border-radius: 0px;
+          font-weight: 500;
+          border-bottom-color: #009a44 !important;
 
           &::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -2px; // 下划线位置
-            width: 100%;
-            height: 2px;
-            background-color: #009a44; // 你的主题绿色
-            border-radius: 1px;
-            transform: scaleX(1);
-            transition: transform 0.3s ease;
+            content: none;
           }
         }
+
         .tags-view-item-title {
-          margin-left: 4px;
-          margin-right: 3px;
-          max-width: 80px;
+          max-width: 120px;
+          margin: 0;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
         }
 
         .el-icon-close {
-          margin-left: 4px;
+          margin-left: 0;
           width: 14px;
           height: 14px;
           border-radius: 50%;
@@ -649,8 +621,7 @@ onUnmounted(() => {
     content: none !important;
   }
   .tags-view-item-title {
-    margin-left: 4px;
-    margin-right: 3px;
+    margin: 0;
   }
   .contextmenu {
     margin: 0;
@@ -677,6 +648,46 @@ onUnmounted(() => {
 @media screen and (max-width: 768px) {
   .tags-view-container {
     height: 36px;
+    padding: 0 8px;
+  }
+
+  .tags-view-container .tags-view-wrapper {
+    margin-right: 26px;
+    margin-left: 26px;
+  }
+
+  .tags-view-container .tags-view-scroll-container .scroll-button {
+    width: 22px;
+    height: 22px;
+  }
+
+  .tags-view-container .tags-view-items-wrapper .tags-view-item {
+    height: 36px;
+    padding: 0 8px;
+    gap: 4px;
+    font-size: 12px;
+  }
+
+  .tags-view-container .tags-view-items-wrapper .tags-view-item .tags-view-item-title {
+    max-width: 80px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .tags-view-container {
+    height: 34px;
+    padding: 0 6px;
+  }
+
+  .tags-view-container .tags-view-items-wrapper .tags-view-item .tags-view-item-title {
+    max-width: 60px;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 768px) {
+  .tags-view-container {
+    height: 40px;
+    padding: 0 12px;
   }
 
   .tags-view-container .tags-view-wrapper {
@@ -684,9 +695,20 @@ onUnmounted(() => {
     margin-left: 28px;
   }
 
-  .tags-view-container .tags-view-items-wrapper {
-    padding-right: 4px;
-    padding-left: 4px;
+  .tags-view-container .tags-view-scroll-container .scroll-button {
+    width: 24px;
+    height: 24px;
+  }
+
+  .tags-view-container .tags-view-items-wrapper .tags-view-item {
+    height: 40px;
+    padding: 0 12px;
+    gap: 6px;
+    font-size: 13px;
+  }
+
+  .tags-view-container .tags-view-items-wrapper .tags-view-item .tags-view-item-title {
+    max-width: 120px;
   }
 }
 </style>

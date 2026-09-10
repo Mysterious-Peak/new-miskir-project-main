@@ -150,38 +150,20 @@ const goBack = () => {
 
 <style lang="scss" scoped>
 .banner-container {
-  // 基础尺寸
   width: 100%;
-  // max-width: 1580px;
   height: 128px;
-
-  // 颜色和渐变
-  background: linear-gradient(135deg, #009a44 0%, #15b04f 100%);
-
-  // 圆角
-  border-radius: 12px;
-
-  // 内边距
-  padding: 24px;
-
-  // 阴影（可选，增强视觉效果）
-  box-shadow: 0 4px 20px rgba(0, 154, 68, 0.2);
-
-  // 布局
+  min-height: 128px;
+  padding: 0 32px;
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
-
-  // 文字颜色
+  gap: 24px;
+  margin-bottom: 0;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #009a44 0%, #00b350 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   color: #ffffff;
-
-  // 过渡效果
-  transition: all 0.3s ease;
-
-  padding: 20px;
 }
 
-// 内容布局
 .banner-content {
   width: 100%;
   min-width: 0;
@@ -191,76 +173,80 @@ const goBack = () => {
   gap: 24px;
 }
 
-// 左侧内容区
 .banner-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
   flex: 1;
   min-width: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  gap: 12px;
 
-  // 居中模式
   .banner-center & {
+    justify-content: center;
     text-align: center;
   }
 }
 
-// 主标题样式
+.banner-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+
+  :deep(.el-icon),
+  :deep(svg),
+  :deep(img) {
+    width: 40px;
+    height: 40px;
+    color: #ffffff;
+    font-size: 40px;
+  }
+}
+
+.banner-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+}
+
 .banner-title {
-  opacity: 1;
-  color: #ffffff;
-  opacity: 1;
-  font-family:
-    Helvetica Neue,
-    Helvetica,
-    PingFang SC,
-    Hiragino Sans GB,
-    Microsoft YaHei,
-    微软雅黑,
-    Arial,
-    sans-serif;
-  font-weight: semibold;
-  font-size: 24px;
-  line-height: normal;
-  letter-spacing: 1px;
-  text-align: left;
-
   margin: 0;
-
-  // 文本阴影增强可读性
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-// 副标题/描述样式
-.banner-description {
-  opacity: 1;
   color: #ffffff;
-  font-family:
-    Helvetica Neue,
-    Helvetica,
-    PingFang SC,
-    Hiragino Sans GB,
-    Microsoft YaHei,
-    微软雅黑,
-    Arial,
-    sans-serif;
-  font-weight: regular;
-  font-size: 18px;
-  line-height: normal;
-  letter-spacing: 0px;
-  text-align: left;
+  font-family: var(--app-font-family);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-// 右侧操作区
+.banner-description {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--app-font-family);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .banner-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex-shrink: 0;
 }
 
-// 自定义内容区
 .banner-custom {
   margin-top: 8px;
 
@@ -269,100 +255,6 @@ const goBack = () => {
   }
 }
 
-// 内容布局
-.banner-content {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-// 左侧内容区
-.banner-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex: 1;
-
-  // 居中模式
-  .banner-center & {
-    justify-content: center;
-    text-align: center;
-  }
-}
-
-// 图标容器
-.banner-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 80px;
-  height: 80px;
-  background-color: #15b04f;
-  border-radius: 16px;
-  cursor: pointer;
-
-  // 图标默认大小
-  :deep(.el-icon),
-  :deep(svg),
-  :deep(img) {
-    width: 32px; // 默认大小
-    height: 32px; // 默认大小
-    color: #ffffff;
-  }
-
-  // Element Plus 图标
-  :deep(.el-icon) {
-    font-size: 24px;
-  }
-}
-
-// 文字区域
-.banner-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 4px; // 标题和描述之间的间距
-  min-width: 0;
-}
-
-// 主标题样式
-.banner-title {
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 18px; // 根据你的字体规范
-  line-height: 27px; // 根据你的字体规范（1.5倍）
-  margin: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  // 文本阴影增强可读性
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-// 副标题/描述样式
-.banner-description {
-  font-size: 14px; // 根据你的字体规范
-  font-weight: 400;
-  line-height: 21px; // 根据你的字体规范（1.5倍）
-  margin: 0;
-  color: rgba(255, 255, 255, 0.9);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-// 右侧操作区
-.banner-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-// 固定在顶部的模式
 .banner-fixed {
   position: sticky;
   top: 24px;
@@ -374,6 +266,7 @@ const goBack = () => {
     height: auto;
     min-height: 112px;
     padding: 20px 16px;
+    margin-bottom: 0;
   }
 
   .banner-content {
@@ -384,6 +277,14 @@ const goBack = () => {
     width: 48px;
     height: 48px;
     border-radius: 10px;
+
+    :deep(.el-icon),
+    :deep(svg),
+    :deep(img) {
+      width: 24px;
+      height: 24px;
+      font-size: 24px;
+    }
   }
 
   .banner-title {
@@ -401,7 +302,8 @@ const goBack = () => {
   .banner-container {
     min-height: 96px;
     padding: 16px 12px;
-    border-radius: 10px;
+    margin-bottom: 0;
+    border-radius: 8px;
   }
 
   .banner-content {
@@ -417,8 +319,8 @@ const goBack = () => {
   .banner-icon :deep(svg),
   .banner-icon :deep(img),
   .banner-icon :deep(.el-icon) {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     font-size: 20px;
   }
 

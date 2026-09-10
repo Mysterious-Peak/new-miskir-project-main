@@ -6,12 +6,11 @@
     <top-nav v-if="settingsStore.topNav" id="topmenu-container" class="topmenu-container" />
 
     <div class="right-menu flex align-center">
-      <template v-if="appStore.device !== 'mobile'">
-        <div class="back-home-btn" @click="goToHome">
-          <svg-icon icon-class="Home" class="home-icon" />
-          <span class="btn-text">Back to Home</span>
-        </div>
-        <!-- <el-select
+      <div class="back-home-btn" @click="goToHome">
+        <svg-icon icon-class="Home" class="home-icon" />
+        <span class="btn-text">Back to Home</span>
+      </div>
+      <!-- <el-select
           v-if="userId === 1 && tenantEnabled"
           v-model="companyName"
           class="min-w-244px"
@@ -26,14 +25,14 @@
           <template #prefix><svg-icon icon-class="company" class="el-input__icon input-icon" /></template>
         </el-select> -->
 
-        <!-- <search-menu ref="searchMenuRef" /> -->
-        <!-- <el-tooltip content="搜索" effect="dark" placement="bottom">
+      <!-- <search-menu ref="searchMenuRef" /> -->
+      <!-- <el-tooltip content="搜索" effect="dark" placement="bottom">
           <div class="right-menu-item hover-effect" @click="openSearchMenu">
             <svg-icon class-name="search-icon" icon-class="search" />
           </div>
         </el-tooltip> -->
-        <!-- 消息 -->
-        <!-- <el-tooltip :content="proxy.$t('navbar.message')" effect="dark" placement="bottom">
+      <!-- 消息 -->
+      <!-- <el-tooltip :content="proxy.$t('navbar.message')" effect="dark" placement="bottom">
           <div>
             <el-popover placement="bottom" trigger="click" transition="el-zoom-in-top" :width="300" :persistent="false">
               <template #reference>
@@ -47,7 +46,7 @@
             </el-popover>
           </div>
         </el-tooltip> -->
-        <!-- <el-tooltip content="Github" effect="dark" placement="bottom">
+      <!-- <el-tooltip content="Github" effect="dark" placement="bottom">
           <ruo-yi-git id="ruoyi-git" class="right-menu-item hover-effect" />
         </el-tooltip>
 
@@ -59,14 +58,13 @@
           <screenfull id="screenfull" class="right-menu-item hover-effect" />
         </el-tooltip> -->
 
-        <!-- <el-tooltip :content="proxy.$t('navbar.language')" effect="dark" placement="bottom">
+      <!-- <el-tooltip :content="proxy.$t('navbar.language')" effect="dark" placement="bottom">
           <lang-select id="lang-select" class="right-menu-item hover-effect lang-select-item" />
         </el-tooltip> -->
 
-        <!-- <el-tooltip :content="proxy.$t('navbar.layoutSize')" effect="dark" placement="bottom">
+      <!-- <el-tooltip :content="proxy.$t('navbar.layoutSize')" effect="dark" placement="bottom">
           <size-select id="size-select" class="right-menu-item hover-effect" />
         </el-tooltip> -->
-      </template>
       <div class="avatar-container">
         <el-dropdown class="right-menu-item hover-effect avatar-dropdown" trigger="click" @command="handleCommand">
           <div class="avatar-wrapper">
@@ -253,7 +251,7 @@ const goToHome = () => {
   overflow: hidden;
   position: relative;
   background: linear-gradient(135deg, rgb(0, 154, 68) 0%, rgb(0, 179, 80) 100%);
-  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 2000;
   display: flex;
   align-items: center;
@@ -273,8 +271,12 @@ const goToHome = () => {
     display: none;
     flex: 0 0 auto;
     align-items: center;
-    height: 100%;
-    padding: 0 8px 0 0;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+    padding: 0 !important;
+    border-radius: 8px;
 
     :deep(.hamburger) {
       fill: #ffffff;
@@ -283,13 +285,14 @@ const goToHome = () => {
 
   .navbar-logo {
     min-width: 0;
-    flex: 1 1 auto;
+    flex: 0 1 auto;
+    width: auto;
+    max-width: none;
+    overflow: hidden;
   }
 
   .hamburger-container {
-    line-height: 46px;
-    height: 100%;
-    float: left;
+    line-height: 40px;
     cursor: pointer;
     transition: background 0.3s;
     -webkit-tap-highlight-color: transparent;
@@ -320,6 +323,7 @@ const goToHome = () => {
     flex: 0 0 auto;
     align-items: center;
     line-height: 50px;
+    gap: 8px;
 
     &:focus {
       outline: none;
@@ -367,47 +371,37 @@ const goToHome = () => {
       &.avatar-dropdown {
         display: flex;
         align-items: center;
-        // height: 32px;
-        padding: 6 12px;
         padding: 6px 12px;
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         border-radius: 12px;
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.12);
         border: 1px solid rgba(255, 255, 255, 0.2);
-
-        box-shadow:
-          0 4px 6px rgba(0, 0, 0, 0.1),
-          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        box-shadow: none;
 
         &:hover {
-          background: rgba(255, 255, 255, 0.25);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
+          background: rgba(255, 255, 255, 0.2);
           transform: translateY(-1px);
-          box-shadow:
-            0 6px 12px rgba(0, 0, 0, 0.15),
-            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+          box-shadow: none;
         }
 
         .avatar-wrapper {
           display: flex;
           align-items: center;
-          gap: 8px;
+          gap: 10px;
 
           /* 使用!important确保样式不被覆盖 */
           .user-avatar {
             cursor: pointer;
-            width: 24px;
-            height: 24px;
-            min-width: 18px;
-            min-height: 18px;
-            max-width: 32px;
-            max-height: 32px;
-            border-radius: 4px;
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+            min-height: 38px;
+            max-width: 38px;
+            max-height: 38px;
+            border-radius: 50%;
             object-fit: cover;
-            // border: 2px solid rgba(255, 255, 255, 0.3) !important;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 2px 8px rgba(254, 221, 0, 0.3);
             display: block;
           }
 
@@ -423,9 +417,9 @@ const goToHome = () => {
               微软雅黑,
               Arial,
               sans-serif;
-            font-weight: regular;
+            font-weight: 600;
             font-size: 14px;
-            line-height: normal;
+            line-height: 1.2;
             letter-spacing: 0px;
             text-align: left;
             cursor: pointer;
@@ -465,7 +459,9 @@ const goToHome = () => {
 .back-home-btn {
   display: flex;
   align-items: center;
-  margin-right: 20px;
+  gap: 4px;
+  padding: 8px 12px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
@@ -476,13 +472,12 @@ const goToHome = () => {
 }
 
 .back-home-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
   transform: translateY(-1px);
-  box-shadow: 0 10px 20px rgba(24, 144, 255, 0.2);
 }
 
 .back-home-btn .home-icon {
-  font-size: 14px;
-  margin-right: 2px;
+  font-size: 18px;
   transition: transform 0.3s ease;
 }
 
@@ -498,7 +493,16 @@ const goToHome = () => {
   // line-height: 80px; /* 与navbar高度一致 */
 }
 
-/* 修改点9：响应式调整 */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .navbar {
+    padding: 0 16px;
+  }
+
+  .navbar .navbar-logo :deep(.sidebar-title) {
+    font-size: 16px;
+  }
+}
+
 @media (max-width: 768px) {
   .navbar {
     padding: 0 12px;
@@ -509,9 +513,11 @@ const goToHome = () => {
 
     .navbar-logo {
       overflow: hidden;
+      max-width: min(60%, 240px);
     }
 
     .navbar-logo :deep(.sidebar-title) {
+      font-size: 15px;
       max-width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -519,21 +525,30 @@ const goToHome = () => {
     }
 
     .right-menu {
+      gap: 4px;
+
       .right-menu-item {
         &.lang-select-item,
         &.avatar-dropdown {
-          height: 36px; /* 移动端稍小 */
           padding: 6px;
         }
 
         &.avatar-dropdown .avatar-wrapper .user-avatar {
-          width: 28px;
-          height: 28px;
+          width: 38px;
+          height: 38px;
         }
       }
     }
 
     .right-menu .avatar-dropdown .avatar-wrapper .user-name {
+      display: none;
+    }
+
+    .back-home-btn {
+      padding: 8px;
+    }
+
+    .back-home-btn .btn-text {
       display: none;
     }
   }
@@ -546,8 +561,16 @@ const goToHome = () => {
   }
 
   .navbar .right-menu .avatar-dropdown .avatar-wrapper .user-avatar {
-    width: 28px;
-    height: 28px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .navbar .navbar-logo {
+    max-width: 180px;
+  }
+
+  .navbar .navbar-logo :deep(.sidebar-title) {
+    font-size: 14px;
   }
 }
 </style>

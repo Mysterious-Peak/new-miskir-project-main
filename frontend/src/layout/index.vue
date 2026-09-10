@@ -1,7 +1,9 @@
 <template>
   <div :class="classObj" class="app-wrapper" :style="{ '--current-color': theme }">
     <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
-    <side-bar v-if="!sidebar.hide" class="sidebar-container" />
+    <side-bar v-if="!sidebar.hide" class="sidebar-container">
+      <template #mobile-header><logo :collapse="false" /></template>
+    </side-bar>
     <div :class="{ 'fixed-header': fixedHeader }" class="header-fixed-container">
       <!-- Navbar 固定在顶部 -->
       <div class="navbar-wrapper">
@@ -32,6 +34,7 @@
 
 <script setup lang="ts">
 import SideBar from './components/Sidebar/index.vue';
+import Logo from './components/Sidebar/Logo.vue';
 import { AppMain, Navbar, Settings, TagsView } from './components';
 import { useAppStore } from '@/store/modules/app';
 import { useSettingsStore } from '@/store/modules/settings';
@@ -160,7 +163,7 @@ const setLayout = () => {
   top: 0;
   height: 100%;
   position: absolute;
-  z-index: 999;
+  z-index: 2002;
 }
 
 .tags-fixed {
@@ -237,13 +240,20 @@ const setLayout = () => {
   }
 
   .tagsview-wrapper {
-    width: calc(100% - 32px);
-    margin: 0 16px 16px;
+    width: calc(100% - 24px);
+    margin: 8px 12px 16px;
   }
 
   .banner-fixed {
     width: calc(100% - 32px);
     margin: 0 16px;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 768px) {
+  .tagsview-wrapper {
+    width: calc(100% - 40px);
+    margin: 20px 20px 20px;
   }
 }
 
@@ -257,8 +267,8 @@ const setLayout = () => {
   }
 
   .tagsview-wrapper {
-    width: calc(100% - 24px);
-    margin: 0 12px 12px;
+    width: calc(100% - 16px);
+    margin: 6px 8px 12px;
   }
 
   .banner-fixed {

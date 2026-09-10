@@ -1,6 +1,9 @@
 <template>
   <div :class="{ 'has-logo': showLogo }" :style="{ backgroundColor: bgColor }">
     <!-- <logo v-if="showLogo" :collapse="isCollapse" /> -->
+    <div class="mobile-sidebar-header">
+      <slot name="mobile-header" />
+    </div>
     <el-scrollbar :class="sideTheme" wrap-class="scrollbar-wrapper">
       <!-- 圆形收缩按钮 -->
       <div class="sidebar-collapse-btn" :class="{ 'is-collapsed': isCollapse }" @click="toggleSideBar">
@@ -69,6 +72,10 @@ const textColor = computed(() => (sideTheme.value === 'theme-dark' ? variables.m
 
 <style lang="scss" scoped>
 @use '@/assets/styles/variables.module.scss' as *;
+
+.mobile-sidebar-header {
+  display: none;
+}
 
 /* 圆形收缩按钮样式 - 与现有CSS结合 */
 .sidebar-collapse-btn {

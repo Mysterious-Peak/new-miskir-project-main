@@ -7,7 +7,7 @@
     <transition :enter-active-class="proxy?.animate.logoAnimate.enter" mode="out-in">
       <div class="sidebar-logo-link">
         <h1 class="sidebar-title" :style="{ color: sideTheme === 'theme-dark' ? variables.logoTitleColor : variables.logoLightTitleColor }">
-          <svg-icon :icon-class="envIcon" style="font-size: 28px; margin-right: 10px" />{{ envTitle }}
+          <svg-icon :icon-class="envIcon" style="font-size: 28px; margin-right: 12px" />{{ envTitle }}
         </h1>
       </div>
     </transition>
@@ -91,18 +91,17 @@ const envIcon = computed(() => {
 
 .sidebar-logo-container {
   position: relative;
-  width: 100%;
+  width: auto;
   min-width: 0;
   height: 100%;
-  line-height: 60px;
-  line-height: 80px;
+  line-height: normal;
   background-color: transparent !important; /* 确保背景透明 */
-  text-align: center;
+  text-align: left;
   overflow: hidden;
 
   & .sidebar-logo-link {
     height: 100%;
-    width: 100%;
+    width: auto;
 
     & .sidebar-logo {
       width: 32px;
@@ -114,18 +113,11 @@ const envIcon = computed(() => {
     & .sidebar-title {
       font-size: 18px;
       font-weight: 600;
-      font-family:
-        Helvetica Neue,
-        Helvetica,
-        PingFang SC,
-        Hiragino Sans GB,
-        Microsoft YaHei,
-        微软雅黑,
-        Arial,
-        sans-serif;
+      font-family: var(--app-font-family);
+      color: #ffffff !important;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       height: 60px;
       margin: 0;
       min-width: 0;
